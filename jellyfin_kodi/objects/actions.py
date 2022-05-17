@@ -158,11 +158,11 @@ class Actions(object):
 
             self.stack.append([part['PlaybackInfo']['Path'], listitem])
 
-    def play_playlist(self, items, clear=True, seektime=None, audio=None, subtitle=None):
+    def play_playlist(self, items, clear=True, seektime=None, audio=None, subtitle=None, startIndex=0):
 
         ''' Play a list of items. Creates a new playlist. Add additional items as plugin listing.
         '''
-        item = items['Items'][0]
+        item = items['Items'][startIndex]
         playlist = self.get_playlist(item)
         player = xbmc.Player()
 
@@ -205,7 +205,7 @@ class Actions(object):
         server_address = item['PlaybackInfo']['ServerAddress']
         token = item['PlaybackInfo']['Token']
 
-        for item in items['Items'][1:]:
+        for item in items['Items'][startIndex+1:]:
             listitem = xbmcgui.ListItem()
             LOG.info("[ playlist/%s ] %s", item['Id'], item['Name'])
 

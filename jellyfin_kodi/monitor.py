@@ -121,10 +121,11 @@ class Monitor(xbmc.Monitor):
         if method == 'Play':
 
             items = server.jellyfin.get_items(data['ItemIds'])
+            startIndex = 0 if "StartIndex" not in data else data['StartIndex']
 
             PlaylistWorker(data.get('ServerId'), items, data['PlayCommand'] == 'PlayNow',
                            data.get('StartPositionTicks', 0), data.get('AudioStreamIndex'),
-                           data.get('SubtitleStreamIndex')).start()
+                           data.get('SubtitleStreamIndex'), startIndex).start()
 
         # TODO no clue if this is called by anything
         elif method == 'PlayPlaylist':
